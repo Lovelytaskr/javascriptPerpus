@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Perpustakaan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <style>
+     * {
+         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+    body {
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background:rgb(202, 132, 175);
+    }
+    h1 {
+        font-size: 15px;
+    }
+    .container {
+        max-width: 700px;
+        width: 100%;
+        background: #fff;
+        padding: 25px 30px;
+        border-radius: 40px;
+    }
+    .container .title {
+        font-size: 25px;
+        font-weight: 500;
+        position: relative;
+    }
+    .container .title::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 30px;
+    }
+    .container-table {
+        max-width: 90%;
+        width: 100%;
+        background: #fff;
+        border-radius: 40px;
+        margin-left: 5%;
+    }
+    .container .user-details {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 20px 0 12px 0;
+        border-radius: 20px;
+    }
+    .user-details .input-box {
+        margin-bottom: 15px;
+        margin-left: 180px;
+        width: 300px;
+    }
+    .user-details .input-box .details {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+    .user-details .input-box input {
+        height: 45px;
+        width: 100%;
+        outline: gray;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        font-size: 16px;
+        border-bottom-width: 2px;
+    }
+
+    </style>
+    
+    <script>
+        let edit = false;
+        let indeks = 0;
+        Tambah = () => {
+            edit = false;
+            //mengosongkan form
+            document.getElementById('nama').value = "";
+            document.getElementById('buku').value = "";
+            document.getElementById('jumlah').value = "";
+            document.getElementById('tgl_pinjam').value = "";
+        }
+
+        Simpan = () => {
+            let table = document.getElementById('tabel-peminjaman');
+            let nama = document.getElementById('nama').value;
+            let buku = document.getElementById('buku').value;
+            let jumlah = document.getElementById('jumlah').value;
+            let tgl_pinjam = document.getElementById('tgl_pinjam').value;          
+            let element = "";
+            element += "<tr>";
+            element += "<td>" + nama + "</td>";
+            element += "<td>" + buku + "</td>";
+            element += "<td>" + jumlah + "</td>";
+            element += "<td>" + tgl_pinjam + "</td>";
+            element += "<td>";
+            element += '<button type="button" class="btn btn-sm btn-danger" ';
+            element += 'onclick="Hapus(this.parentElement.parentElement.rowIndex)">Hapus</button>';
+            element += "</td>";
+            element += "</tr>";
+            table.innerHTML += element;
+        }
+
+        Hapus = (index) => {
+            let tabel = document.getElementById('tabel-peminjaman');
+            tabel.deleteRow(index);
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+    <div class="container">
+        <div class="title">-PERPUSTAKAAN-</div>
+        <h1>Peminjaman Buku</h1>
+        <!-- <form> -->
+            <div class="user-details">
+                <div class="input-box">
+                    Nama :
+                    <span class="details"></span>
+                    <input type="text" id="nama" placeholder="Masukkan nama" required>
+                    Jenis Buku :
+                    <span class="details"></span>
+                    <select id="buku" class="form-control" placeholder="Pilih Buku" required>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Ensiklopedia">Ensiklopedia</option>
+                        <option value="Dongeng Rakyat">Dongeng Rakyat</option>
+                        <option value="Kamus">Kamus</option>
+                        <option value="Majalah">Majalah</option>
+                        <option value="Novel">Novel</option> 
+                        <option value="Biografi">Biografi</option> 
+                        <option value="Fisika">Fisika</option> 
+                        <option value="Kimia">Kimia</option>     
+                    </select>
+                    Jumlah :
+                    <span class="details"></span>
+                    <input type="text" id="jumlah" placeholder="Masukkan jumlah" required>
+                    Tanggal Pinjam :
+                    <span class="details"></span>
+                    <input type="date" id="tgl_pinjam" placeholder="Masukkan tanggal pinjam" required>
+               
+                </div>
+            </div>
+                <div class="button">
+                <button type="submit" value="Simpan" onclick="Simpan()" class="btn btn-success">Simpan</button> | <button type="submit" value="Tambah" onclick="Tambah()" class="btn btn-primary">Tambah</button>
+                </div>
+            </center>
+        
+    <br>
+    <br>
+    <div class="container-table">
+        <br>
+        <br>
+        <table id="tabel-peminjaman" class="table align-items-center mb-0">
+        <thead>
+            <tr class="text-xs font-weight-bold opacity-10 text-secondary bg-light">
+                <th>Nama</th>
+                <th>Jenis Buku</th>
+                <th>Jumlah</th>
+                <th>Tanggal Pinjam</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody class="text-xs font-weight-bold">
+        </tbody>
+    </table>
+    </div>
+</div>
+</body>
+</html>
